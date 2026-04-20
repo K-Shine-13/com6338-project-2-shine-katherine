@@ -1,0 +1,23 @@
+body {
+    font-family: 'Courier New', Courier, monospace;
+    background: #0e0e11;
+    color: #eaeaea;
+    display: flex;
+    justify-content: center;
+    padding: 40px;
+    background-color: #291922;
+    background-image: url("https://www.transparenttextures.com/patterns/gravel.png");
+}
+
+.game-container {
+    max-width: 600px;
+    width: 100%;
+    background: #0b0f0c;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+h1 {
+    text-align: center;
+}
