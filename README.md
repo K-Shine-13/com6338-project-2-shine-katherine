@@ -25,10 +25,10 @@ Project 2 - Create an Interactive Text-Based Adventure Game Using JavaScript
                 |--> if the player's health reaches 0, they die, reseting the game.
         |- As the player travels, they encounter random chance events that may either grant a reward or cause a loss of either health or gems.
         |- They navigate through the caves until they gain enough loot to return to the merchant with, ending the game.
-
- Return to Surface → Merchant Inspects Loot
-   |
-   | --> ≥100 loot → Payout → Start Screen
-   | --> <100 loot
-         | --> Try again
-         | --> Give up --> Start Screen
+    |
+    Return to Surface → Merchant Inspects Loot
+      |
+      | --> ≥100 loot → Payout → Start Screen
+      | --> <100 loot
+            | --> Try again
+            | --> Give up --> Start Screen
