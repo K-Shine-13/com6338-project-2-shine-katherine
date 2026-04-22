@@ -1,37 +1,44 @@
 # com6338-project-2-shine-katherine
 ## Project 2 - Create an Interactive Text-Based Adventure Game Using JavaScript
 
-Cave Explorer Simulator is a browser-based, text-driven adventure game inspired by classic terminal RPGs. The player takes on the role of a cave explorer tasked with collecting valuable loot for a mysterious merchant stationed at the cave entrance.
+Cave Explorer Simulator is a browser-based, text-based adventure game inspired by classic terminal RPGs. I wanted to create a game that resembled the old-style text-based adventure games that I would see growing up, as they are one of the main things that drew me into coding in the first place when I was young. 
+
+The player takes on the role of a cave explorer tasked with collecting valuable loot for a mysterious merchant stationed at the cave entrance. The player is tasked with collecting a certain amount of loot in order for the merchant to pay out, and their journey into the cave in question is riddled with dangers at every corner.
 
 The core gameplay loop revolves around risk vs. reward:
 
 - Players explore branching cave paths
 - Collect loot (gold) while managing health
 - Encounter increasingly dangerous conditions the longer they stay inside
-- Return to the merchant to cash out—or risk losing everything
-## Core Features
+- Return to the merchant to cash out—or risk walking away with nothing at all
+
+## Core game Features
 ### Scene-Based Navigation
-- The game is structured as interconnected “scenes”
+- The game is structured as interconnected “scene" objects
 - Each scene presents narrative text and a set of player choices
 - Choices determine the next scene and may modify player stats
+
 ### Player State Management
 - Tracks:
  - Gold (loot collected via collecting gems during the game)
  - Health
  - Danger Level (hidden difficulty scaling used to calculate probability for random danger events)
  - State persists across scenes until the game ends
-### Dynamic Risk System
-- The longer the player explores, the higher the dangerLevel rises, the chance of random negative events to occur
-- Encourages players to balance greed vs. survival
+
+### Progression-based Risk System
+- The longer the player explores, the higher the dangerLevel rises, increasing the chance of random negative events to occur
+- If the player chooses to play it too safe, they may get trapped by te cave forever
+
 ### Randomized Elements
 - Occasional hidden paths (e.g., healing cave)
 - Random danger events that interrupt progression
-- Adds replayability without requiring complex systems
+
 ### Multiple Endings
 - Successful cash-out (the player has accumulated enough gold for the merchant to pay them)
-- Failure (insufficient loot)
+- Failure (insufficient loot, the player can either quit or return to the cave and try to earn enough)
 - Death (health reaches 0)
-- Hidden endings (triggered by high danger levels)
+- Trapped (the dangerLevel reaches too high, and the player is trapped in the cave forever)
+
 ### Game Loop Structure
 - Start screen
 - Merchant introduction
@@ -82,7 +89,7 @@ FUNCTION renderScene:
 
     FOR each choice:
         Create button
-        Attach click handler → handleChoice(choice)
+        Attach click handler --> handleChoice(choice)
 
 ### 4. Handling Player Choices
 FUNCTION handleChoice(choice):
