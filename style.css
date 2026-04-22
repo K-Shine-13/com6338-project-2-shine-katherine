@@ -46,6 +46,8 @@ h1 {
 #story {
     margin: 20px 0;
     line-height: 1.5;
+    padding-bottom: 50px;
+    padding-top: 20px;
 }
 
 button {
@@ -63,15 +65,10 @@ button {
 }
 
 button:hover {
-    background: #3a3a45;
+    background: #305533;
 }
 
 #image-container {
     margin: 15px 0;
     text-align: center;
-}
-
-#scene-image {
-    max-width: 100%;
-    border-radius: 8px;
 }

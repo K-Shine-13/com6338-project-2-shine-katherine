@@ -22,7 +22,6 @@ const storyEl = document.getElementById("story")
 const choicesEl = document.getElementById("choices")
 const goldEl = document.getElementById("gold")
 const healthEl = document.getElementById("health")
-const imageEl = document.getElementById("scene-image")
 
 // Reset Game Function
 
@@ -48,7 +47,6 @@ function isDangerScene(sceneId) {
 
 // Each scene contains:
 // - text 
-// - image (if applicable)
 // - choices (array of options)
 // Each choice contains:
 // - text (button label)
@@ -61,7 +59,6 @@ const scenes = {
 
     merchantIntro: {
         text: "A crooked merchant grins at you. \"Looking for work, are we?\"",
-        image: "images/merchant.jpg",
         choices: [
             { text: "“Just bored.”", next: "merchantBored" },
             { text: "“I need quick cash.”", next: "merchantCash" }
@@ -70,21 +67,18 @@ const scenes = {
 
     merchantBored: {
         text: "\"Hah! Boredom gets people killed around these parts.\" he chuckles. \"Well, if you insist on curing your boredom this way, enter yonder cave and bring me back a loot worth my time and money. Hrm...About 200 gold for your troubles sounds good, eh?\"",
-        image: "images/merchant.jpg",
         choices: [{ text: "Better than nothing...Enter the cave", next: "fork" }]
     },
 
     merchantCash: {
         text: "\"Good. You'll find a quick job here. Enter yonder cave and bring me back a loot worth my time and money. Hrm...About 200 gold for your troubles sounds good, eh?\"",
-        image: "images/merchant.jpg",
         choices: [{ text: "Score! Enter the cave", next: "fork" }]
     },
 
     // MAIN FORK
 
     fork: {
-        text: "The cave splits into multiple tunnels.",
-        image: "images/fork.jpg",
+        text: "The cave ahead of you splits into multiple tunnels. You pause to consider your options.",
         choices: [
             { text: "Glowing tunnel", next: "crystalTunnel" },
             { text: "Dark tunnel", next: "darkTunnel" },
@@ -94,7 +88,6 @@ const scenes = {
 
     crystalTunnel: {
         text: "Soft blue crystals line the walls.",
-        image: "images/crystals.jpg",
         choices: [
             {
                 text: "Collect crystals (+20 gold)",
@@ -107,7 +100,6 @@ const scenes = {
 
     deepCrystal: {
         text: "The crystals pulse... like a heartbeat. Red spikes cover it's form.",
-        image: "images/deep-crystal.jpg",
         choices: [
             {
                 text: "Harvest large, spiky crystal",
@@ -126,7 +118,6 @@ const scenes = {
 
     darkTunnel: {
         text: "Something shifts in the darkness, a creature's fangs scrape the cave walls. From the darkness, you see the feint glimmer of gems.",
-        image: "images/dark.jpg",
         choices: [
             {
                 text: "Reach for the gems, take your chance with the shadow creature.",
@@ -142,10 +133,9 @@ const scenes = {
 
     healingCave: {
         text: "A quiet chamber glows softly. Strange plants pulse with an emerald glow.",
-        image: "images/heal.jpg",
         choices: [
             {
-                text: "Consume glowing fruit (+30 health)",
+                text: "Consume strange glowing fruit (+30 health)",
                 next: "returnFork",
                 effect: (s) => s.health += 30
             },
@@ -160,7 +150,6 @@ const scenes = {
 
     returnFork: {
         text: "You find your way back to a familiar fork in the cave path.",
-        image: "images/fork.jpg",
         choices: [
             { text: "Glowing tunnel", next: "crystalTunnel" },
             { text: "Dark tunnel", next: "darkTunnel" },
@@ -169,8 +158,7 @@ const scenes = {
     },
 
     merchantInspect: {
-        text: "The merchant inspects your haul carefully...",
-        image: "images/merchant.jpg",
+        text: "The merchant inspects your haul carefully, counting through your loot with a clawed finger...",
         choices: [{ text: "Wait for his ruling...", next: "merchantOutcome" }]
     },
 
@@ -178,7 +166,6 @@ const scenes = {
 
     shadowAttack: {
         text: "Something lunges towards you in the dark. Claws rake across your side before you can react.",
-        image: "images/dark.jpg",
         choices: [
             {
                 text: "Yeouch! All you can do is stumble onward...",
@@ -190,11 +177,10 @@ const scenes = {
 
     whisperingVoices: {
         text: "You hear whispers... promising riches to you if you lend an ear.",
-        image: "images/echo.jpg",
         choices: [
             { text: "Ignore them", next: "resumeJourney" },
             {
-                text: "Give the mysterious voices a listen, what could go wrong? (-health)",
+                text: "Give the mysterious voices a listen, what could go wrong?",
                 next: "resumeJourney",
                 effect: (s) => s.health -= 15
             }
@@ -202,32 +188,28 @@ const scenes = {
     },
 
     caveShift: {
-        text: "The cave shifts around you.",
-        image: "images/abyss.jpg",
+        text: "The cave shifts around you, like a labyrinth shifting it's path. Part of you wonders if you'll make it out again.",
         choices: [
-            { text: "Press forward", next: "resumeJourney" }
+            { text: "Pause and wait for the walls to stop shaking", next: "resumeJourney" }
         ]
     },
 
     resumeJourney: {
         text: "You gather yourself and continue.",
-        image: "images/fork.jpg",
         choices: [
-            { text: "Continue", next: "resumeStoredScene" }
+            { text: "Continue onward", next: "resumeStoredScene" }
         ]
     },
 
     // Endings
 
     goodEnding: {
-        text: "“Now THIS is a haul!” He grins greedily and takes your gemstones with gnarled claws, and pays you well.",
-        image: "images/gold.jpg",
+        text: "“Now THIS is a haul! Thanks for yer services, pal.” He grins greedily and takes your gemstones with gnarled claws, and pays you well.",
         choices: [{ text: "Collect your riches and depart (Return to Start)", next: "startScreen" }]
     },
 
     badEnding: {
-        text: "“This is nothing.” He looks disappointed.",
-        image: "images/merchant.jpg",
+        text: "“Pah, this is nothing! What do you think I am? Get back in there!” He looks disappointed.",
         choices: [
             { text: "Go back into the cave", next: "fork" },
             { text: "Give up", next: "noPayEnding" }
@@ -235,20 +217,17 @@ const scenes = {
     },
 
     noPayEnding: {
-        text: "The merchant curses you under his breath and snatches what measly loot you have. You leave empty-handed.",
-        image: "images/empty.jpg",
+        text: "The merchant curses you under his breath and snatches what measly loot you have, he's obviously not goig to pay you anything. You leave empty-handed.",
         choices: [{ text: "Better luck next time! (Return to Title)", next: "startScreen" }]
     },
 
     consumedEnding: {
         text: "As you try to make your way back to the merchant at the enterance, you the cave's darkness overtake your mind and soul. You've wandered too far into the depths...and the cave does not let you leave.",
-        image: "images/death.jpg",
         choices: [{ text: "Whoops! Better luck next time (Return to Title)", next: "startScreen" }]
     },
 
     death: {
         text: "You feel your life force leave your body as your health depletes. Darkness consumes you.",
-        image: "images/death.jpg",
         choices: [{ text: "Better luck next time! (Return to Title)", next: "startScreen" }]
     }
 }
@@ -264,13 +243,12 @@ const scenes = {
 function renderStartScreen() {
     storyEl.innerHTML = `
     <h2>Welcome to Cave Explorer Simulator!</h2>
-    <p>By K S</p>
-    <p>You've heard tell of a local cave that may  (or may not) contain some valuable treasures.</p>
-    <p> As luck would have it, a merchant seems to have set up shop outside of the cave mouth, intriging you further.</p>
+    <p>A game by Katherine Shine</p>
+    <p> You've heard tell of a local cave that may  (or may not) contain some valuable treasures.</p>
+    <p> As luck would have it, a merchant seems to have set up shop outside of the cave mouth, enticing you further.</p>
     <p> What harm can there be in checking it out?</p>
   `
 
-    imageEl.src = "images/title.jpg"
     choicesEl.innerHTML = ""
 
     const btn = document.createElement("button")
@@ -292,14 +270,12 @@ function renderStartScreen() {
 // Get current scene
 // Update:
 // - story text
-// - image (if applicable)
 // - stats display
 // - buttons for each choice
 function renderScene() {
     const scene = scenes[gameState.currentScene]
 
     storyEl.textContent = scene.text
-    imageEl.src = scene.image || ""
     goldEl.textContent = gameState.gold
     healthEl.textContent = gameState.health
 
